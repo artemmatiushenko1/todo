@@ -1,4 +1,4 @@
-import Input from 'components/basic/Input';
+import { Input } from 'components/basic';
 import './TodoForm.scss';
 
 const TodoForm = () => {

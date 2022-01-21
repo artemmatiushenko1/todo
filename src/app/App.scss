@@ -2,4 +2,10 @@
   max-width: 54rem;
   margin: 0 auto;
   padding-top: 7rem;
+  display: grid;
+  row-gap: 2.5rem;
+
+  .card:last-child {
+    box-shadow: 0 2rem 3rem rgba(0, 0, 0, 0.07);
+  }
 }

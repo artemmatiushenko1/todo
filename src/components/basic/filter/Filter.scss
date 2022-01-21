@@ -1,0 +1,22 @@
+.filter {
+  &__option {
+    display: inline-block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #bdbdc5;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:not(:last-child) {
+      margin-right: 1.5rem;
+    }
+
+    &:hover:not(.active) {
+      color: #4c4e5b;
+    }
+
+    &.active {
+      color: #4d7edb;
+    }
+  }
+}

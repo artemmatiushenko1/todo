@@ -1,14 +1,20 @@
 import TodoForm from 'components/todo-form/TodoForm';
-import Header from 'components/header/Header';
 import './App.scss';
 import Todos from 'components/todos/Todos';
+import Card from 'components/helpers/Card';
+import { Toolbar, Header } from 'components/containers';
 
 function App() {
   return (
     <div className="app">
       <Header />
-      <TodoForm />
-      <Todos />
+      <Card>
+        <TodoForm />
+      </Card>
+      <Card>
+        <Todos />
+        <Toolbar />
+      </Card>
     </div>
   );
 }

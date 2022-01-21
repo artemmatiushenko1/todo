@@ -1,0 +1,24 @@
+.toolbar {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  justify-items: center;
+  padding: 1.5rem 2.2rem;
+  align-items: center;
+  background-color: #fff;
+
+  &__tasks-left-count {
+    color: #9d9ca1;
+    font-size: 1.4rem;
+  }
+
+  &__clear-completed-btn {
+    color: #9d9ca1;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #4c4e5b;
+    }
+  }
+}
