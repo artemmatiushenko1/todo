@@ -1,0 +1,13 @@
+.input {
+  background: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 1.8rem;
+  width: 100%;
+  color: #393945;
+
+  &:placeholder {
+    vertical-align: middle;
+  }
+}

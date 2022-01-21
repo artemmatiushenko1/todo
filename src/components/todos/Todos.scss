@@ -1,0 +1,49 @@
+.todo {
+  width: 100%;
+  padding: 2rem 2.2rem;
+  display: flex;
+  align-items: center;
+  column-gap: 2rem;
+  background-color: #fff;
+
+  &__content {
+    color: #46465e;
+  }
+
+  &.done &__content {
+    text-decoration: line-through;
+    color: #d6d5da;
+  }
+
+  &__checkbox {
+    height: 2.5rem;
+    width: 2.5rem;
+    position: relative;
+    appearance: none;
+
+    &::before {
+      content: '';
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      border-radius: 10rem;
+      background-image: linear-gradient(to right, #fff, #fff);
+      border: 1px solid hsl(236, 33%, 92%);
+      top: 0;
+      left: 0;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    &:checked::before {
+      background-image: url('../../assets/images/icon-check.svg'),
+        linear-gradient(
+          to bottom right,
+          hsl(192, 100%, 67%),
+          hsl(280, 87%, 65%)
+        );
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+}

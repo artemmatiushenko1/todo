@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+body {
+  font-size: 1.8rem;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.116),
+      rgba(255, 255, 255, 0.116)
+    ),
+    url('./assets/images/bg-desktop-light.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: top;
+  height: 100vh;
+  background-color: hsl(0, 0%, 98%);
+}
