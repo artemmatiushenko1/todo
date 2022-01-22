@@ -1,14 +1,13 @@
 import { Filter } from 'components/shared';
-import { useSelector, useDispatch } from 'react-redux';
-import { clearCompleted } from 'redux/actions';
+import { useSelector } from 'react-redux';
+import boundTodoActions from 'redux/actions/todoActions';
 import './Toolbar.scss';
 
 const Toolbar = () => {
-  const dispatch = useDispatch();
   const totalTodosLeft = useSelector(
     (state) => state.todos.todos.filter((el) => !el.isCompleted).length
   );
-  const onClearCompletedHandler = () => dispatch(clearCompleted());
+  const onClearCompletedHandler = () => boundTodoActions.clearCompleted();
 
   return (
     <div className="toolbar">

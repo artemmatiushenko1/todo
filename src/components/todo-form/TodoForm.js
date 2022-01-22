@@ -1,12 +1,10 @@
 import { Input } from 'components/shared';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addTodo } from 'redux/actions';
+import boundTodoActions from 'redux/actions/todoActions';
 import './TodoForm.scss';
 
 const TodoForm = () => {
   const [todoText, setTodoText] = useState('');
-  const dispatch = useDispatch();
 
   const onTodoChangeHnadler = (e) => {
     setTodoText(e.target.value);
@@ -15,7 +13,7 @@ const TodoForm = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const todo = { id: Date.now(), text: todoText, isCompleted: false };
-    dispatch(addTodo(todo));
+    boundTodoActions.add(todo);
     setTodoText('');
   };
 

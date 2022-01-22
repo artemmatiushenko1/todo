@@ -15,8 +15,8 @@ function App() {
         <TodoForm />
       </Card>
       <Card>
-        <Todos todos={filteredTodos} />
         <Toolbar />
+        <Todos todos={filteredTodos} />
       </Card>
     </div>
   );

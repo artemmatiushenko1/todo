@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setFilter } from 'redux/actions';
+import boundToDoActions from 'redux/actions/todoActions';
 import './Filter.scss';
 
 const Filter = ({ options = [] }) => {
   const [activeOption, setActiveOption] = useState(0);
-  const dispatch = useDispatch();
   const onOptionSelectedHandler = (index) => {
     setActiveOption(index);
-    dispatch(setFilter(index));
+    boundToDoActions.setFilter(index);
   };
 
   return (
