@@ -2,7 +2,7 @@ import './App.scss';
 import Card from 'components/helpers/Card';
 import { TodoForm, Todos, Toolbar, Header } from 'components';
 import { useSelector } from 'react-redux';
-import { filteringOptions } from 'constants';
+import { filteringOptions } from 'helpers';
 
 function App() {
   const { todos, filter } = useSelector((state) => state.todos);
