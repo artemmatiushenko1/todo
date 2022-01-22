@@ -1,11 +1,14 @@
 import { Filter } from 'components/shared';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearCompleted } from 'redux/actions';
 import './Toolbar.scss';
 
 const Toolbar = () => {
+  const dispatch = useDispatch();
   const totalTodosLeft = useSelector(
     (state) => state.todos.filter((el) => !el.isCompleted).length
   );
+  const onClearCompletedHandler = () => dispatch(clearCompleted());
 
   return (
     <div className="toolbar">
@@ -13,7 +16,12 @@ const Toolbar = () => {
         <span>{totalTodosLeft}</span> tasks left
       </p>
       <Filter />
-      <div className="toolbar__clear-completed-btn">Clear Completed</div>
+      <div
+        className="toolbar__clear-completed-btn"
+        onClick={onClearCompletedHandler}
+      >
+        Clear Completed
+      </div>
     </div>
   );
 };
