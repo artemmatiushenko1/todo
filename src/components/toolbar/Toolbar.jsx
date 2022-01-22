@@ -6,7 +6,7 @@ import './Toolbar.scss';
 const Toolbar = () => {
   const dispatch = useDispatch();
   const totalTodosLeft = useSelector(
-    (state) => state.todos.filter((el) => !el.isCompleted).length
+    (state) => state.todos.todos.filter((el) => !el.isCompleted).length
   );
   const onClearCompletedHandler = () => dispatch(clearCompleted());
 

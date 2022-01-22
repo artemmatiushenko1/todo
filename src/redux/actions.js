@@ -3,6 +3,7 @@ import {
   DELETE_TODO,
   TOGGLE_COMPLETED,
   CLEAR_COMPLETED,
+  SET_FILTER,
 } from './types';
 
 export const addTodo = (todo) => {
@@ -30,5 +31,12 @@ export const clearCompleted = (id) => {
   return {
     type: CLEAR_COMPLETED,
     payload: id,
+  };
+};
+
+export const setFilter = (filterId) => {
+  return {
+    type: SET_FILTER,
+    payload: filterId,
   };
 };

@@ -1,11 +1,13 @@
-import TodoForm from 'components/todo-form/TodoForm';
 import './App.scss';
-import Todos from 'components/todos/Todos';
 import Card from 'components/helpers/Card';
-import Toolbar from 'components/toolbar/Toolbar';
-import Header from 'components/header/Header';
+import { TodoForm, Todos, Toolbar, Header } from 'components';
+import { useSelector } from 'react-redux';
+import { filteringOptions } from 'constants';
 
 function App() {
+  const { todos, filter } = useSelector((state) => state.todos);
+  const filteredTodos = filteringOptions.get(filter)(todos);
+
   return (
     <div className="app">
       <Header />
@@ -13,7 +15,7 @@ function App() {
         <TodoForm />
       </Card>
       <Card>
-        <Todos />
+        <Todos todos={filteredTodos} />
         <Toolbar />
       </Card>
     </div>
