@@ -1,5 +1,5 @@
 import './Header.scss';
-import ThemeToggle from './ThemeToggle';
+import { ThemeToggle } from 'components/shared';
 
 const Header = () => {
   return (
