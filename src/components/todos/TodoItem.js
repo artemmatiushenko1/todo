@@ -1,12 +1,9 @@
 import { ReactComponent as IconRemove } from 'assets/images/icon-cross.svg';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toogleCompleted, deleteTodo } from 'redux/actions';
 import './TodoItem.scss';
 
-const TodoItem = ({ content, id }) => {
-  const { isCompleted } = useSelector((state) => {
-    return state.todos.find((el) => el.id === id);
-  });
+const TodoItem = ({ content, id, isCompleted }) => {
   const dispatch = useDispatch();
   const onCompletedChangeHandler = () => dispatch(toogleCompleted(id));
   const onDeleteHandler = () => dispatch(deleteTodo(id));

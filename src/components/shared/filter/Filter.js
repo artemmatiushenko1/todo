@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Filter.scss';
 
-const Filter = () => {
+const Filter = ({ options = [] }) => {
+  const [activeOption, setActiveOption] = useState(0);
+  const onOptionSelectedHandler = (index) => {
+    setActiveOption(index);
+  };
+
   return (
     <div className="filter">
-      <p className="filter__option active">All</p>
-      <p className="filter__option">Active</p>
-      <p className="filter__option">Completed</p>
+      {options.map((option, i) => (
+        <p
+          key={i}
+          className={`filter__option ${activeOption === i ? 'active' : ''}`}
+          onClick={onOptionSelectedHandler.bind(null, i)}
+        >
+          {option}
+        </p>
+      ))}
     </div>
   );
 };

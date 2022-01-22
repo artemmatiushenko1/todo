@@ -15,7 +15,7 @@ const Toolbar = () => {
       <p className="toolbar__tasks-left-count">
         <span>{totalTodosLeft}</span> tasks left
       </p>
-      <Filter />
+      <Filter options={['All', 'Active', 'Completed']} />
       <div
         className="toolbar__clear-completed-btn"
         onClick={onClearCompletedHandler}
