@@ -1,7 +1,7 @@
 import { Filter } from 'components/shared';
 import { useSelector } from 'react-redux';
 import boundTodoActions from 'redux/actions/todoActions';
-import useScreenSize from 'hooks/use-screen-size';
+import { useScreenSize } from 'hooks';
 import './Toolbar.scss';
 
 const Toolbar = () => {

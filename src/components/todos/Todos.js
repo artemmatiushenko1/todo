@@ -1,12 +1,17 @@
 import './Todos.scss';
 import TodoItem from './TodoItem';
+import { filteringOptions } from 'helpers';
+import { useSelector } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-const Todos = ({ todos }) => {
+const Todos = () => {
+  const { todos, filter } = useSelector((state) => state.todos);
+  const filteredTodos = filteringOptions.get(filter)(todos);
+
   return (
     <ul className="todos">
       <TransitionGroup>
-        {todos.map(({ id, text, isCompleted }) => {
+        {filteredTodos.map(({ id, text, isCompleted }) => {
           return (
             <CSSTransition key={id} timeout={350} classNames="todo--animated">
               <TodoItem
