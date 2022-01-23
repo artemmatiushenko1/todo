@@ -1,5 +1,6 @@
 .card {
   border-radius: 5px;
-  background-color: #fff;
+  background-color: var(--color-todo-primary);
   overflow: hidden;
+  transition: background-color 0.5s ease;
 }

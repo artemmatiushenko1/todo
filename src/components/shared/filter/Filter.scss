@@ -3,7 +3,7 @@
     display: inline-block;
     font-size: 1.4rem;
     font-weight: 700;
-    color: #bdbdc5;
+    color: var(--color-button);
     cursor: pointer;
     transition: color 0.2s ease;
 
@@ -12,11 +12,11 @@
     }
 
     &:hover:not(.active) {
-      color: #4c4e5b;
+      color: var(--color-button-hover);
     }
 
     &.active {
-      color: #4d7edb;
+      color: var(--color-button-active);
     }
   }
 }

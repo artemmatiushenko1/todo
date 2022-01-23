@@ -5,7 +5,7 @@ import {
   CLEAR_COMPLETED,
   SET_FILTER,
 } from '../types';
-import store from 'redux/store';
+import { store } from 'redux/store';
 import { bindActionCreators } from 'redux';
 
 const addTodo = (todo) => {

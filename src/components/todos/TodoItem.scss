@@ -5,8 +5,8 @@
   grid-template-columns: min-content 1fr min-content;
   align-items: center;
   column-gap: 2rem;
-  background-color: #fff;
-  border-bottom: 1px solid #d6d5da;
+  border-bottom: 1px solid var(--color-todo-done-text);
+  transition: barder-color 0.5s ease;
 
   &--animated-enter {
     opacity: 0.7;
@@ -35,7 +35,7 @@
   }
 
   &__content {
-    color: #46465e;
+    color: var(--color-todo-text);
     width: 100%;
     transition: color 0.5s ease;
   }
@@ -51,7 +51,7 @@
 
   &.completed &__content {
     text-decoration: line-through;
-    color: #d6d5da;
+    color: var(--color-todo-done-text);
   }
 
   &__checkbox {
@@ -66,8 +66,12 @@
       width: 100%;
       position: absolute;
       border-radius: 10rem;
-      background-image: linear-gradient(to right, #fff, #fff);
-      border: 1px solid hsl(236, 33%, 92%);
+      background-image: linear-gradient(
+        to right,
+        var(--color-todo-primary),
+        var(--color-todo-primary)
+      );
+      border: 1px solid var(--color-todo-done-text);
       top: 0;
       left: 0;
       align-self: center;

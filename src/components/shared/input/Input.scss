@@ -5,7 +5,7 @@
   font-family: inherit;
   font-size: 1.8rem;
   width: 100%;
-  color: #393945;
+  color: var(--color-todo-text);
 
   &:placeholder {
     vertical-align: middle;
