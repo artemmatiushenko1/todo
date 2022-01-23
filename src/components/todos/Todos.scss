@@ -1,1 +1,13 @@
+.todos {
+  max-height: 35rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(136, 136, 136, 0.486);
+  }
+}

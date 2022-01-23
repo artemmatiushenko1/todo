@@ -1,9 +1,16 @@
+@import 'styles/variables';
+
 .toolbar {
   display: grid;
   grid-template-columns: max-content 1fr max-content;
   justify-items: center;
   padding: 1.5rem 2.2rem;
   align-items: center;
+
+  @media only screen and (max-width: $bp-mobile) {
+    display: flex;
+    justify-content: space-between;
+  }
 
   &__tasks-left-count {
     color: var(--color-button);
