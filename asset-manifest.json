@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/todo/static/css/main.8c93acf3.css",
-    "main.js": "/todo/static/js/main.c806de23.js",
+    "main.css": "/todo/static/css/main.4ec5c5d8.css",
+    "main.js": "/todo/static/js/main.14663c4d.js",
     "static/media/bg-desktop-light.jpg": "/todo/static/media/bg-desktop-light.3508d620efd5a52bb4ce.jpg",
     "static/media/bg-desktop-dark.jpg": "/todo/static/media/bg-desktop-dark.73e47dbb723ebc772ef0.jpg",
     "index.html": "/todo/index.html",
@@ -9,11 +9,11 @@
     "static/media/icon-moon.svg": "/todo/static/media/icon-moon.6c03114b495d05f4380b.svg",
     "static/media/icon-cross.svg": "/todo/static/media/icon-cross.6ee81d30b75cab19d6f7314624fcc4d6.svg",
     "static/media/icon-check.svg": "/todo/static/media/icon-check.a8fb15d0278c8e312df5.svg",
-    "main.8c93acf3.css.map": "/todo/static/css/main.8c93acf3.css.map",
-    "main.c806de23.js.map": "/todo/static/js/main.c806de23.js.map"
+    "main.4ec5c5d8.css.map": "/todo/static/css/main.4ec5c5d8.css.map",
+    "main.14663c4d.js.map": "/todo/static/js/main.14663c4d.js.map"
   },
   "entrypoints": [
-    "static/css/main.8c93acf3.css",
-    "static/js/main.c806de23.js"
+    "static/css/main.4ec5c5d8.css",
+    "static/js/main.14663c4d.js"
   ]
 }
