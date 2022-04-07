@@ -6,6 +6,7 @@ import './Toolbar.scss';
 
 const Toolbar = () => {
   const { reachedScreen: reachedMobileScreen } = useScreenSize(600);
+  const activeFilter = useSelector((state) => state.todos.filter);
   const totalTodosLeft = useSelector(
     (state) => state.todos.todos.filter((el) => !el.isCompleted).length
   );
@@ -18,7 +19,10 @@ const Toolbar = () => {
           <span>{totalTodosLeft}</span> tasks left
         </p>
         {!reachedMobileScreen && (
-          <Filter options={['All', 'Active', 'Completed']} />
+          <Filter
+            options={['All', 'Active', 'Completed']}
+            value={activeFilter}
+          />
         )}
         <div
           className="toolbar__clear-completed-btn"

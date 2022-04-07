@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import boundToDoActions from 'redux/actions/todoActions';
 import './Filter.scss';
 
-const Filter = ({ options = [] }) => {
-  const [activeOption, setActiveOption] = useState(0);
+const Filter = ({ options = [], value }) => {
+  const [activeOption, setActiveOption] = useState(value);
   const onOptionSelectedHandler = (index) => {
     setActiveOption(index);
     boundToDoActions.setFilter(index);
