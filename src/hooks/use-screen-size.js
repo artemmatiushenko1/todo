@@ -1,17 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 
 const useScreenSize = (breakpoint) => {
-  const [reachedScreen, setReachedScreen] = useState(
-    window.innerWidth < breakpoint
-  );
+  const [matches, setMatches] = useState(window.innerWidth < breakpoint);
 
   const onScreenResizeHandler = useCallback(() => {
     const screenWidth = window.innerWidth;
     if (screenWidth > breakpoint) {
-      setReachedScreen(false);
+      setMatches(false);
       return;
     }
-    setReachedScreen(true);
+    setMatches(true);
   }, [breakpoint]);
 
   useEffect(() => {
@@ -21,9 +19,7 @@ const useScreenSize = (breakpoint) => {
     };
   }, [onScreenResizeHandler]);
 
-  return {
-    reachedScreen,
-  };
+  return matches;
 };
 
 export default useScreenSize;

@@ -1,28 +1,27 @@
+import './Toolbar.scss';
 import { Filter } from 'components/shared';
 import { useSelector } from 'react-redux';
 import boundTodoActions from 'redux/actions/todoActions';
 import { useScreenSize } from 'hooks';
-import './Toolbar.scss';
+import { filterSelector, todoSelector } from 'redux/selectors/todo';
+
+const filterOptions = ['All', 'Active', 'Completed'];
 
 const Toolbar = () => {
-  const { reachedScreen: reachedMobileScreen } = useScreenSize(600);
-  const activeFilter = useSelector((state) => state.todos.filter);
-  const totalTodosLeft = useSelector(
-    (state) => state.todos.todos.filter((el) => !el.isCompleted).length
-  );
+  const isMobileScreen = useScreenSize(600);
+  const activeFilter = useSelector(filterSelector);
+  const todos = useSelector(todoSelector);
+  const todosLeft = todos.filter((todo) => !todo.isCompleted).length;
   const onClearCompletedHandler = () => boundTodoActions.clearCompleted();
 
   return (
     <>
       <div className="toolbar">
         <p className="toolbar__tasks-left-count">
-          <span>{totalTodosLeft}</span> tasks left
+          <span>{todosLeft}</span> tasks left
         </p>
-        {!reachedMobileScreen && (
-          <Filter
-            options={['All', 'Active', 'Completed']}
-            value={activeFilter}
-          />
+        {!isMobileScreen && (
+          <Filter options={filterOptions} value={activeFilter} />
         )}
         <div
           className="toolbar__clear-completed-btn"

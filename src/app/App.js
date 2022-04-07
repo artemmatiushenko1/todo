@@ -4,10 +4,11 @@ import { TodoForm, Todos, Toolbar, Header } from 'components';
 import { useSelector } from 'react-redux';
 import { Filter } from 'components/shared';
 import { useScreenSize, useTheme } from 'hooks';
+import { isDarkThemeSelector } from 'redux/selectors/theme';
 
 function App() {
-  const { reachedScreen: reachedMobileScreen } = useScreenSize(600);
-  const { isDarkTheme } = useSelector((state) => state.theme);
+  const isMobileScreen = useScreenSize(600);
+  const isDarkTheme = useSelector(isDarkThemeSelector);
   useTheme(isDarkTheme);
 
   return (
@@ -20,7 +21,7 @@ function App() {
         <Toolbar />
         <Todos />
       </Card>
-      {reachedMobileScreen && (
+      {isMobileScreen && (
         <Card>
           <Filter options={['All', 'Active', 'Completed']} />
         </Card>

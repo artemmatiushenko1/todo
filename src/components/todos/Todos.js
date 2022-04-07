@@ -3,9 +3,11 @@ import TodoItem from './TodoItem';
 import { filteringOptions } from 'helpers';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { filterSelector, todoSelector } from 'redux/selectors/todo';
 
 const Todos = () => {
-  const { todos, filter } = useSelector((state) => state.todos);
+  const todos = useSelector(todoSelector);
+  const filter = useSelector(filterSelector);
   const [filteredTodos, setfilteredTodos] = useState([]);
 
   useEffect(() => {
