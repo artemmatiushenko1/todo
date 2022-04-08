@@ -1,9 +1,18 @@
 import './Todos.scss';
 import TodoItem from './TodoItem';
-import { filteringOptions } from 'helpers';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { filterSelector, todoSelector } from 'redux/selectors/todo';
+
+const getAllTodos = (todos) => todos;
+const getActiveTodos = (todos) => todos.filter((todo) => !todo.isCompleted);
+const getCompletedTodos = (todos) => todos.filter((todo) => todo.isCompleted);
+
+export const filteringOptions = new Map([
+  [0, getAllTodos],
+  [1, getActiveTodos],
+  [2, getCompletedTodos],
+]);
 
 const Todos = () => {
   const todos = useSelector(todoSelector);
@@ -11,11 +20,7 @@ const Todos = () => {
   const [filteredTodos, setfilteredTodos] = useState([]);
 
   useEffect(() => {
-    if (filter) {
-      setfilteredTodos(filteringOptions.get(filter)(todos));
-    } else {
-      setfilteredTodos(todos);
-    }
+    setfilteredTodos(filteringOptions.get(filter)(todos));
   }, [filter, todos]);
 
   return (

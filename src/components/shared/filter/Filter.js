@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import boundToDoActions from 'redux/actions/todoActions';
 import './Filter.scss';
 
