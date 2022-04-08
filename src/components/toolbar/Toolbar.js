@@ -1,5 +1,5 @@
 import './Toolbar.scss';
-import { Filter } from 'components/shared';
+import { Filter } from 'components';
 import { useSelector } from 'react-redux';
 import boundTodoActions from 'redux/actions/todoActions';
 import { useScreenSize } from 'hooks';
@@ -14,22 +14,20 @@ const Toolbar = () => {
   const onClearCompletedHandler = () => boundTodoActions.clearCompleted();
 
   return (
-    <>
-      <div className="toolbar">
-        <p className="toolbar__tasks-left-count">
-          <span>{todosLeft}</span> tasks left
-        </p>
-        {!isMobileScreen && (
-          <Filter options={filterOptions} value={activeFilter} />
-        )}
-        <div
-          className="toolbar__clear-completed-btn"
-          onClick={onClearCompletedHandler}
-        >
-          Clear Completed
-        </div>
+    <div className="toolbar">
+      <p className="toolbar__tasks-left-count">
+        <span>{todosLeft}</span> tasks left
+      </p>
+      {!isMobileScreen && (
+        <Filter options={filterOptions} value={activeFilter} />
+      )}
+      <div
+        className="toolbar__clear-completed-btn"
+        onClick={onClearCompletedHandler}
+      >
+        Clear Completed
       </div>
-    </>
+    </div>
   );
 };
 

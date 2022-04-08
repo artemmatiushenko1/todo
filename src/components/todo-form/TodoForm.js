@@ -1,4 +1,4 @@
-import { Input } from 'components/shared';
+import { Input } from 'components';
 import { useState } from 'react';
 import boundTodoActions from 'redux/actions/todoActions';
 import './TodoForm.scss';

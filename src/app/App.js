@@ -1,8 +1,7 @@
 import './App.scss';
-import Card from 'components/helpers/Card';
-import { TodoForm, Todos, Toolbar, Header } from 'components';
+import Card from 'components/card/Card';
+import { TodoForm, Todos, Toolbar, Header, Filter } from 'components';
 import { useSelector } from 'react-redux';
-import { Filter } from 'components/shared';
 import { useScreenSize } from 'hooks';
 import { isDarkThemeSelector } from 'redux/selectors/theme';
 import { useEffect } from 'react';
