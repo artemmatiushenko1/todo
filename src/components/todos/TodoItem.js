@@ -3,13 +3,30 @@ import boundTodoActions from 'redux/actions/todoActions';
 
 import './TodoItem.scss';
 
-const TodoItem = ({ content, id, isCompleted }) => {
+const TodoItem = ({
+  content,
+  id,
+  isCompleted,
+  draggable = false,
+  onDragStart,
+  onDragOver,
+  onDragEnd,
+  onDragLeave,
+}) => {
   const onCompletedChangeHandler = () => boundTodoActions.toggle(id);
   const onDeleteHandler = () => boundTodoActions.delete(id);
   const classNames = `todo ${isCompleted ? 'completed' : ''}`;
 
   return (
-    <li className={classNames} id={id}>
+    <li
+      className={classNames}
+      id={id}
+      draggable={draggable}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDragEnd={onDragEnd}
+      onDragLeave={onDragLeave}
+    >
       <input
         type="checkbox"
         className="todo__checkbox"

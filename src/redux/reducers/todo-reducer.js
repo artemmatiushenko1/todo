@@ -4,6 +4,7 @@ import {
   TOGGLE_COMPLETED,
   CLEAR_COMPLETED,
   SET_FILTER,
+  UPDATE_TODOS_LIST,
 } from '../types';
 
 const initialState = {
@@ -38,6 +39,9 @@ const todoReducer = (state = initialState, action) => {
     }
     case SET_FILTER: {
       return { ...state, filter: action.payload };
+    }
+    case UPDATE_TODOS_LIST: {
+      return { ...state, todos: action.payload };
     }
     default: {
       return state;

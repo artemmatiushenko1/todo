@@ -4,6 +4,7 @@ import {
   TOGGLE_COMPLETED,
   CLEAR_COMPLETED,
   SET_FILTER,
+  UPDATE_TODOS_LIST,
 } from '../types';
 import { store } from 'redux/store';
 import { bindActionCreators } from 'redux';
@@ -43,6 +44,13 @@ const setFilter = (filterId) => {
   };
 };
 
+const updateTodoList = (shuffledList) => {
+  return {
+    type: UPDATE_TODOS_LIST,
+    payload: shuffledList,
+  };
+};
+
 const boundToDoActions = bindActionCreators(
   {
     add: addTodo,
@@ -50,6 +58,7 @@ const boundToDoActions = bindActionCreators(
     toggle: toogleCompleted,
     clearCompleted,
     setFilter,
+    updateTodoList,
   },
   store.dispatch
 );

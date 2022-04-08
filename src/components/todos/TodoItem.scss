@@ -11,26 +11,8 @@
     border-bottom: 1px solid var(--color-todo-done-text);
   }
 
-  &--animated-enter {
-    opacity: 0.7;
-    transform: translateX(-100px);
-  }
-
-  &--animated-enter-active {
-    opacity: 1;
-    transform: translateX(0);
-    transition: all 350ms ease-in;
-  }
-
-  &--animated-exit {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  &--animated-exit-active {
-    opacity: 0;
-    transform: translateX(100px);
-    transition: all 350ms ease-in;
+  &.drop-background {
+    background-color: aqua;
   }
 
   &:hover &__remove-btn {
