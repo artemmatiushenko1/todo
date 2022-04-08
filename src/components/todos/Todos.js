@@ -8,7 +8,7 @@ const getAllTodos = (todos) => todos;
 const getActiveTodos = (todos) => todos.filter((todo) => !todo.isCompleted);
 const getCompletedTodos = (todos) => todos.filter((todo) => todo.isCompleted);
 
-export const filteringOptions = new Map([
+const todoFilters = new Map([
   [0, getAllTodos],
   [1, getActiveTodos],
   [2, getCompletedTodos],
@@ -17,10 +17,10 @@ export const filteringOptions = new Map([
 const Todos = () => {
   const todos = useSelector(todoSelector);
   const filter = useSelector(filterSelector);
-  const [filteredTodos, setfilteredTodos] = useState([]);
+  const [filteredTodos, setFilteredTodos] = useState([]);
 
   useEffect(() => {
-    setfilteredTodos(filteringOptions.get(filter)(todos));
+    setFilteredTodos(todoFilters.get(filter)(todos));
   }, [filter, todos]);
 
   return (

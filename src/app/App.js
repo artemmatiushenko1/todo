@@ -6,6 +6,7 @@ import { Filter } from 'components/shared';
 import { useScreenSize } from 'hooks';
 import { isDarkThemeSelector } from 'redux/selectors/theme';
 import { useEffect } from 'react';
+import { filterOptions } from 'constants';
 
 const App = () => {
   const isMobileScreen = useScreenSize(600);
@@ -31,7 +32,7 @@ const App = () => {
       </Card>
       {isMobileScreen && (
         <Card>
-          <Filter options={['All', 'Active', 'Completed']} />
+          <Filter options={filterOptions} />
         </Card>
       )}
     </div>

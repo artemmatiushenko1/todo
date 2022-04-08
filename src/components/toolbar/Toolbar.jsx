@@ -4,8 +4,7 @@ import { useSelector } from 'react-redux';
 import boundTodoActions from 'redux/actions/todoActions';
 import { useScreenSize } from 'hooks';
 import { filterSelector, todoSelector } from 'redux/selectors/todo';
-
-const filterOptions = ['All', 'Active', 'Completed'];
+import { filterOptions } from 'constants';
 
 const Toolbar = () => {
   const isMobileScreen = useScreenSize(600);

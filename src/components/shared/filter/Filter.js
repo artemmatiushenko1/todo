@@ -4,20 +4,20 @@ import './Filter.scss';
 
 const Filter = ({ options = [], value }) => {
   const [activeOption, setActiveOption] = useState(value);
-  const onOptionSelectedHandler = (index) => {
-    setActiveOption(index);
-    boundToDoActions.setFilter(index);
+  const onOptionSelectedHandler = (value) => {
+    setActiveOption(value);
+    boundToDoActions.setFilter(value);
   };
 
   return (
     <div className="filter">
-      {options.map((option, i) => (
+      {options.map(({ value, label }, i) => (
         <p
           key={i}
-          className={`filter__option ${activeOption === i ? 'active' : ''}`}
-          onClick={onOptionSelectedHandler.bind(null, i)}
+          className={`filter__option ${activeOption === value ? 'active' : ''}`}
+          onClick={onOptionSelectedHandler.bind(null, value)}
         >
-          {option}
+          {label}
         </p>
       ))}
     </div>
