@@ -26,6 +26,12 @@ const Todos = () => {
     setFilteredTodos(todoFilters.get(filter)(todos));
   }, [filter, todos]);
 
+  const removeTodoHighlight = (e) => {
+    const todoItem = e.target.closest('.todo');
+    if (!todoItem) return;
+    todoItem.classList.remove('drop-background');
+  };
+
   const onDragStartHandler = (e, position) => {
     dragItemPosition.current = position;
   };
@@ -33,6 +39,9 @@ const Todos = () => {
   const onDragOverHandler = (e, position) => {
     e.preventDefault();
     dragOverPosition.current = position;
+    const todoItem = e.target.closest('.todo');
+    if (!todoItem) return;
+    todoItem.classList.add('drop-background');
   };
 
   const onDragEndHandler = (e) => {
@@ -50,6 +59,14 @@ const Todos = () => {
     dragItemPosition.current = null;
   };
 
+  const onDragLeaveHandler = (e) => {
+    removeTodoHighlight(e);
+  };
+
+  const onDropHandler = (e) => {
+    removeTodoHighlight(e);
+  };
+
   return (
     <ul className="todos">
       {filteredTodos.map(({ id, text, isCompleted }, i) => {
@@ -63,6 +80,8 @@ const Todos = () => {
             onDragStart={(e) => onDragStartHandler(e, i)}
             onDragOver={(e) => onDragOverHandler(e, i)}
             onDragEnd={onDragEndHandler}
+            onDrop={onDropHandler}
+            onDragLeave={onDragLeaveHandler}
           />
         );
       })}

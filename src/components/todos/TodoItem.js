@@ -12,6 +12,7 @@ const TodoItem = ({
   onDragOver,
   onDragEnd,
   onDragLeave,
+  onDrop,
 }) => {
   const onCompletedChangeHandler = () => boundTodoActions.toggle(id);
   const onDeleteHandler = () => boundTodoActions.delete(id);
@@ -19,13 +20,14 @@ const TodoItem = ({
 
   return (
     <li
-      className={classNames}
       id={id}
+      className={classNames}
       draggable={draggable}
       onDragStart={onDragStart}
       onDragOver={onDragOver}
       onDragEnd={onDragEnd}
       onDragLeave={onDragLeave}
+      onDrop={onDrop}
     >
       <input
         type="checkbox"
