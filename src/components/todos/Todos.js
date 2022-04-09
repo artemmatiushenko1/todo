@@ -85,6 +85,9 @@ const Todos = () => {
           />
         );
       })}
+      {filteredTodos.length === 0 ? (
+        <div className="message">No todos found</div>
+      ) : null}
     </ul>
   );
 };
