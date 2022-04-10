@@ -4,4 +4,6 @@ import rootReducer from './reducers/index';
 
 export const store = createStore(rootReducer);
 
+//some comment for testing purposes
+
 export const persistor = persistStore(store);
