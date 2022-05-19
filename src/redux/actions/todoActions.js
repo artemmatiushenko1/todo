@@ -6,8 +6,6 @@ import {
   SET_FILTER,
   UPDATE_TODOS_LIST,
 } from '../types';
-import { store } from 'redux/store';
-import { bindActionCreators } from 'redux';
 
 const addTodo = (todo) => {
   return {
@@ -51,16 +49,11 @@ const updateTodoList = (shuffledList) => {
   };
 };
 
-const boundToDoActions = bindActionCreators(
-  {
-    add: addTodo,
-    delete: deleteTodo,
-    toggle: toogleCompleted,
-    clearCompleted,
-    setFilter,
-    updateTodoList,
-  },
-  store.dispatch
-);
-
-export default boundToDoActions;
+export const todoActions = {
+  add: addTodo,
+  remove: deleteTodo,
+  toggle: toogleCompleted,
+  clearCompleted,
+  setFilter,
+  updateTodoList,
+};

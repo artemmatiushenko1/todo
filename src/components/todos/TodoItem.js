@@ -1,5 +1,6 @@
 import { ReactComponent as IconRemove } from 'assets/images/icon-cross.svg';
-import boundTodoActions from 'redux/actions/todoActions';
+import { todoActions } from 'redux/actions/todoActions';
+import { useActions } from 'hooks';
 
 import './TodoItem.scss';
 
@@ -14,8 +15,9 @@ const TodoItem = ({
   onDragLeave,
   onDrop,
 }) => {
-  const onCompletedChangeHandler = () => boundTodoActions.toggle(id);
-  const onDeleteHandler = () => boundTodoActions.delete(id);
+  const { toggle, remove } = useActions(todoActions);
+  const onCompletedChangeHandler = () => toggle(id);
+  const onDeleteHandler = () => remove(id);
   const classNames = `todo ${isCompleted ? 'completed' : ''}`;
 
   return (

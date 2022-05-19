@@ -1,10 +1,12 @@
 import { Input } from 'components';
+import { useActions } from 'hooks';
 import { useState } from 'react';
-import boundTodoActions from 'redux/actions/todoActions';
+import { todoActions } from 'redux/actions/todoActions';
 import './TodoForm.scss';
 
 const TodoForm = () => {
   const [todoText, setTodoText] = useState('');
+  const { add } = useActions(todoActions);
 
   const onTodoChangeHnadler = (e) => {
     setTodoText(e.target.value);
@@ -13,7 +15,7 @@ const TodoForm = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const todo = { id: Date.now(), text: todoText, isCompleted: false };
-    boundTodoActions.add(todo);
+    add(todo);
     setTodoText('');
   };
 

@@ -3,7 +3,8 @@ import TodoItem from './TodoItem';
 import { useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import { filterSelector, todoSelector } from 'redux/selectors/todo';
-import boundToDoActions from 'redux/actions/todoActions';
+import { todoActions } from 'redux/actions/todoActions';
+import { useActions } from 'hooks';
 
 const getAllTodos = (todos) => todos;
 const getActiveTodos = (todos) => todos.filter((todo) => !todo.isCompleted);
@@ -21,6 +22,7 @@ const Todos = () => {
   const [filteredTodos, setFilteredTodos] = useState([]);
   const dragItemPosition = useRef();
   const dragOverPosition = useRef();
+  const { updateTodoList } = useActions(todoActions);
 
   useEffect(() => {
     setFilteredTodos(todoFilters.get(filter)(todos));
@@ -53,7 +55,7 @@ const Todos = () => {
     newList[dragOverPosition.current] = dragItem;
 
     if (filter) return;
-    boundToDoActions.updateTodoList(newList);
+    updateTodoList(newList);
 
     dragItemPosition.current = null;
     dragItemPosition.current = null;
