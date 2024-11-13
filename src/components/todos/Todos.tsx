@@ -1,9 +1,9 @@
 import './Todos.scss';
 import TodoItem from './TodoItem';
-import { useRef } from 'react';
 import { Todo } from '../../types/todo.type';
 import { TodoStatus } from '../../constants';
 import { useTodosStore } from '../../zustand/todos.store';
+import { useDnd } from '../../hooks/use-dnd';
 
 const todoFilters = new Map([
   [TodoStatus.ANY, (todos: Todo[]) => todos],
@@ -27,66 +27,22 @@ const Todos = ({ filter }: TodosProps) => {
 
   const toggleTodoCompleted = useTodosStore((store) => store.toggleIsCompleted);
   const deleteTodo = useTodosStore((store) => store.deleteTodo);
-  const updateTodosList = useTodosStore((store) => store.updateTodoList);
 
-  const dragItemPosition = useRef<number | null>(null);
-  const dragOverPosition = useRef<number | null>(null);
+  const {
+    handleDragEnd,
+    handleDragLeave,
+    handleDragOver,
+    handleDragStart,
+    handleDrop,
+  } = useDnd<Todo>({
+    getItems: () => useTodosStore.getState().todos,
+    updateItems: (newTodos) => {
+      // TODO: update todo list
+      useTodosStore.getState().updateTodoList(newTodos);
+    },
+  });
 
   const filteredTodos = (todoFilters.get(filter)?.(todos) || []) as Todo[];
-
-  const removeTodoHighlight = (e: React.DragEvent<HTMLLIElement>) => {
-    if (e.target instanceof HTMLLIElement) {
-      const todoItem = e.target.closest('.todo');
-      if (!todoItem) return;
-      todoItem.classList.remove('drop-background');
-    }
-  };
-
-  const onDragStartHandler = (position: number) => {
-    dragItemPosition.current = position;
-  };
-
-  const onDragOverHandler = (
-    e: React.DragEvent<HTMLLIElement>,
-    position: number
-  ) => {
-    e.preventDefault();
-
-    dragOverPosition.current = position;
-
-    if (e.target instanceof HTMLLIElement) {
-      const todoItem = e.target.closest('.todo');
-      if (!todoItem) return;
-      todoItem.classList.add('drop-background');
-    }
-  };
-
-  const onDragEndHandler = (e: React.DragEvent<HTMLLIElement>) => {
-    e.preventDefault();
-
-    if (dragItemPosition.current === null || dragOverPosition.current === null)
-      return;
-
-    const newList = [...todos];
-    const dragItem = newList[dragItemPosition.current];
-
-    newList[dragItemPosition.current] = newList[dragOverPosition.current];
-    newList[dragOverPosition.current] = dragItem;
-
-    // TODO: update todo list
-    updateTodosList(newList);
-
-    dragItemPosition.current = null;
-    dragItemPosition.current = null;
-  };
-
-  const onDragLeaveHandler = (e: React.DragEvent<HTMLLIElement>) => {
-    removeTodoHighlight(e);
-  };
-
-  const onDropHandler = (e: React.DragEvent<HTMLLIElement>) => {
-    removeTodoHighlight(e);
-  };
 
   const handleToggleTodoCompleted = (id: string) => {
     // TODO: toggle todo isCompleted
@@ -110,11 +66,11 @@ const Todos = ({ filter }: TodosProps) => {
             draggable={filter === TodoStatus.ANY}
             onToggleCompleted={handleToggleTodoCompleted}
             onDelete={handleDeleteTodo}
-            onDragStart={() => onDragStartHandler(i)}
-            onDragOver={(e) => onDragOverHandler(e, i)}
-            onDragEnd={onDragEndHandler}
-            onDrop={onDropHandler}
-            onDragLeave={onDragLeaveHandler}
+            onDragStart={() => handleDragStart(i)}
+            onDragOver={(e) => handleDragOver(e, i)}
+            onDrop={handleDrop}
+            onDragEnd={handleDragEnd}
+            onDragLeave={handleDragLeave}
           />
         );
       })}
