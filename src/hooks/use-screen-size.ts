@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const useScreenSize = (breakpoint) => {
+const useScreenSize = (breakpoint: number) => {
   const [matches, setMatches] = useState(window.innerWidth < breakpoint);
 
   const onScreenResizeHandler = useCallback(() => {
@@ -13,9 +13,14 @@ const useScreenSize = (breakpoint) => {
   }, [breakpoint]);
 
   useEffect(() => {
-    window.addEventListener('resize', onScreenResizeHandler);
+    const controller = new AbortController();
+
+    window.addEventListener('resize', onScreenResizeHandler, {
+      signal: controller.signal,
+    });
+
     return () => {
-      window.removeEventListener('resize', onScreenResizeHandler);
+      controller.abort();
     };
   }, [onScreenResizeHandler]);
 
