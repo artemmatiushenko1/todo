@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 import { Todo } from '../types/todo.type';
+import { createJSONStorage, devtools, persist } from 'zustand/middleware';
+import { immer } from 'zustand/middleware/immer';
 
 type TodosStoreState = {
   todos: Todo[];
@@ -13,36 +15,42 @@ type TodosStoreActions = {
   updateTodoList: (newTodosList: Todo[]) => void;
 };
 
-const useTodosStore = create<TodosStoreState & TodosStoreActions>()(
-  (set, get) => ({
-    todos: [],
+const stateCreator = immer<TodosStoreState & TodosStoreActions>((set, get) => ({
+  todos: [],
 
-    addTodo: (todo) => {
-      set({ todos: [...get().todos, todo] });
-    },
-    deleteTodo: (todoId) => {
-      set({
-        todos: get().todos.filter((todo) => todo.id !== todoId),
-      });
-    },
-    toggleIsCompleted: (todoId) => {
-      set({
-        todos: get().todos.map((todo) =>
-          todo.id === todoId
-            ? { ...todo, isCompleted: !todo.isCompleted }
-            : todo
-        ),
-      });
-    },
-    clearCompletedTodos: () => {
-      set({
-        todos: get().todos.filter((todo) => !todo.isCompleted),
-      });
-    },
-    updateTodoList: (nextTodosList: Todo[]) => {
-      set({ todos: nextTodosList });
-    },
-  })
+  addTodo: (todo) =>
+    set((state) => {
+      state.todos.push(todo);
+    }),
+  deleteTodo: (todoId) => {
+    set({
+      todos: get().todos.filter((todo) => todo.id !== todoId),
+    });
+  },
+  toggleIsCompleted: (todoId) => {
+    set({
+      todos: get().todos.map((todo) =>
+        todo.id === todoId ? { ...todo, isCompleted: !todo.isCompleted } : todo
+      ),
+    });
+  },
+  clearCompletedTodos: () => {
+    set({
+      todos: get().todos.filter((todo) => !todo.isCompleted),
+    });
+  },
+  updateTodoList: (nextTodosList: Todo[]) => {
+    set({ todos: nextTodosList });
+  },
+}));
+
+const useTodosStore = create<TodosStoreState & TodosStoreActions>()(
+  devtools(
+    persist(stateCreator, {
+      name: 'todos',
+      storage: createJSONStorage(() => window.localStorage),
+    })
+  )
 );
 
 export { useTodosStore };
