@@ -2,11 +2,9 @@ import { Input } from '../../components';
 import { useState } from 'react';
 import './TodoForm.scss';
 import { Todo } from '../../types/todo.type';
-import { useTodosStore } from '../../zustand/todos.store';
 
 const TodoForm = () => {
   const [todoText, setTodoText] = useState('');
-  const addTodo = useTodosStore((store) => store.addTodo);
 
   const onTodoChangeHnadler: React.ChangeEventHandler<HTMLInputElement> = (
     e
@@ -24,7 +22,6 @@ const TodoForm = () => {
     };
 
     // TODO: Add todo to the store
-    addTodo(todo);
 
     setTodoText('');
   };

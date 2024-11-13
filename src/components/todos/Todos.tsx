@@ -2,7 +2,6 @@ import './Todos.scss';
 import TodoItem from './TodoItem';
 import { Todo } from '../../types/todo.type';
 import { TodoStatus } from '../../constants';
-import { useTodosStore } from '../../zustand/todos.store';
 import { useDnd } from '../../hooks/use-dnd';
 import classNames from 'classnames';
 
@@ -24,10 +23,7 @@ type TodosProps = {
 
 const Todos = ({ filter }: TodosProps) => {
   // TODO: select todos
-  const todos = useTodosStore((store) => store.todos);
-
-  const toggleTodoCompleted = useTodosStore((store) => store.toggleIsCompleted);
-  const deleteTodo = useTodosStore((store) => store.deleteTodo);
+  const todos: Todo[] = [];
 
   const {
     dragOverItemIndex,
@@ -37,23 +33,23 @@ const Todos = ({ filter }: TodosProps) => {
     handleDragStart,
     handleDrop,
   } = useDnd<Todo>({
-    getItems: () => useTodosStore.getState().todos,
+    getItems: () => {
+      // TODO: get all todos
+      return [];
+    },
     updateItems: (newTodos) => {
       // TODO: update todo list
-      useTodosStore.getState().updateTodoList(newTodos);
     },
   });
 
-  const filteredTodos = (todoFilters.get(filter)?.(todos) || []) as Todo[];
+  const filteredTodos = todoFilters.get(filter)?.(todos) ?? [];
 
   const handleToggleTodoCompleted = (id: string) => {
     // TODO: toggle todo isCompleted
-    toggleTodoCompleted(id);
   };
 
   const handleDeleteTodo = (id: string) => {
     // TODO: delete todo
-    deleteTodo(id);
   };
 
   return (

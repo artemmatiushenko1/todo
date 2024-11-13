@@ -1,19 +1,15 @@
 import './Toolbar.scss';
 import { PropsWithChildren } from 'react';
-import { useTodosStore } from '../../zustand/todos.store';
+import { Todo } from '../../types/todo.type';
 
 const Toolbar = ({ children }: PropsWithChildren) => {
   // TODO: select todos
-  const todos = useTodosStore((store) => store.todos);
-  const clearCompletedTodos = useTodosStore(
-    (store) => store.clearCompletedTodos
-  );
+  const todos: Todo[] = [];
 
   const todosLeft = todos.filter((todo) => !todo.isCompleted).length;
 
   const handleClearCompletedTodosClick = () => {
     // TODO: clear completed todos
-    clearCompletedTodos();
   };
 
   return (
