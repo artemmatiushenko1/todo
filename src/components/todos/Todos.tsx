@@ -5,6 +5,7 @@ import { TodoStatus } from '../../constants';
 import { useTodosStore } from '../../zustand/todos.store';
 import { useDnd } from '../../hooks/use-dnd';
 import classNames from 'classnames';
+import { useShallow } from 'zustand/react/shallow';
 
 const todoFilters = new Map([
   [TodoStatus.ANY, (todos: Todo[]) => todos],
@@ -24,7 +25,9 @@ type TodosProps = {
 
 const Todos = ({ filter }: TodosProps) => {
   // TODO: select todos
-  const todos = useTodosStore((store) => store.todos);
+  const todos = useTodosStore(
+    useShallow((store) => todoFilters.get(filter)?.(store.todos) ?? store.todos)
+  );
 
   const toggleTodoCompleted = useTodosStore((store) => store.toggleIsCompleted);
   const deleteTodo = useTodosStore((store) => store.deleteTodo);
@@ -44,8 +47,6 @@ const Todos = ({ filter }: TodosProps) => {
     },
   });
 
-  const filteredTodos = (todoFilters.get(filter)?.(todos) || []) as Todo[];
-
   const handleToggleTodoCompleted = (id: string) => {
     // TODO: toggle todo isCompleted
     toggleTodoCompleted(id);
@@ -58,7 +59,7 @@ const Todos = ({ filter }: TodosProps) => {
 
   return (
     <ul className="todos">
-      {filteredTodos.map(({ id, text, isCompleted }, i) => {
+      {todos.map(({ id, text, isCompleted }, i) => {
         return (
           <TodoItem
             key={id}
@@ -80,7 +81,7 @@ const Todos = ({ filter }: TodosProps) => {
           />
         );
       })}
-      {filteredTodos.length === 0 ? (
+      {todos.length === 0 ? (
         <div className="message">No todos found</div>
       ) : null}
     </ul>
