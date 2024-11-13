@@ -4,7 +4,6 @@ import {
   DELETE_TODO,
   TOGGLE_COMPLETED,
   CLEAR_COMPLETED,
-  SET_FILTER,
   UPDATE_TODOS_LIST,
 } from '../types';
 
@@ -36,13 +35,6 @@ const clearCompleted = (id: string) => {
   } as const;
 };
 
-const setFilter = (filterId: string) => {
-  return {
-    type: SET_FILTER,
-    payload: filterId,
-  } as const;
-};
-
 const updateTodoList = (shuffledList: Todo[]) => {
   return {
     type: UPDATE_TODOS_LIST,
@@ -55,7 +47,6 @@ export type TodoActions =
   | ReturnType<typeof deleteTodo>
   | ReturnType<typeof toogleCompleted>
   | ReturnType<typeof clearCompleted>
-  | ReturnType<typeof setFilter>
   | ReturnType<typeof updateTodoList>;
 
 export const todoActions = {
@@ -63,6 +54,5 @@ export const todoActions = {
   remove: deleteTodo,
   toggle: toogleCompleted,
   clearCompleted,
-  setFilter,
   updateTodoList,
 };

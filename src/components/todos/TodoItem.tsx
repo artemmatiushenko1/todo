@@ -1,6 +1,3 @@
-import { todoActions } from '../../redux/actions/todoActions';
-import { useActions } from '../../hooks';
-
 import './TodoItem.scss';
 import { IconRemove } from '../icon-remove';
 
@@ -9,6 +6,10 @@ type TodoItemProps = {
   id: string;
   isCompleted: boolean;
   draggable: boolean;
+
+  onToggleCompleted: (id: string) => void;
+  onDelete: (id: string) => void;
+
   onDragStart: React.DragEventHandler<HTMLLIElement>;
   onDragOver: React.DragEventHandler<HTMLLIElement>;
   onDragEnd: React.DragEventHandler<HTMLLIElement>;
@@ -26,10 +27,13 @@ const TodoItem = ({
   onDragEnd,
   onDragLeave,
   onDrop,
+  onToggleCompleted,
+  onDelete,
 }: TodoItemProps) => {
-  const { toggle, remove } = useActions(todoActions);
-  const onCompletedChangeHandler = () => toggle(id);
-  const onDeleteHandler = () => remove(id);
+  const handleCheckboxChange = () => onToggleCompleted(id);
+
+  const handleDeleteClick = () => onDelete(id);
+
   const classNames = `todo ${isCompleted ? 'completed' : ''}`;
 
   return (
@@ -46,11 +50,11 @@ const TodoItem = ({
       <input
         type="checkbox"
         className="todo__checkbox"
-        onChange={onCompletedChangeHandler}
         checked={isCompleted}
+        onChange={handleCheckboxChange}
       />
       <p className="todo__content">{content}</p>
-      <div className={`todo__remove-btn`} onClick={onDeleteHandler}>
+      <div className={`todo__remove-btn`} onClick={handleDeleteClick}>
         <IconRemove />
       </div>
     </li>

@@ -1,23 +1,20 @@
 import './Todos.scss';
 import TodoItem from './TodoItem';
-import { useSelector } from 'react-redux';
 import { useRef } from 'react';
-import { todosSelector } from '../../redux/selectors/todo';
-import { todoActions } from '../../redux/actions/todoActions';
-import { useActions } from '../../hooks';
 import { Todo } from '../../types/todo.type';
 import { TodoStatus } from '../../constants';
-
-const getAllTodos = (todos: Todo[]) => todos;
-const getActiveTodos = (todos: Todo[]) =>
-  todos.filter((todo) => !todo.isCompleted);
-const getCompletedTodos = (todos: Todo[]) =>
-  todos.filter((todo) => todo.isCompleted);
+import { useTodosStore } from '../../zustand/todos.store';
 
 const todoFilters = new Map([
-  [TodoStatus.ANY, getAllTodos],
-  [TodoStatus.ACTIVE, getActiveTodos],
-  [TodoStatus.COMPLETED, getCompletedTodos],
+  [TodoStatus.ANY, (todos: Todo[]) => todos],
+  [
+    TodoStatus.ACTIVE,
+    (todos: Todo[]) => todos.filter((todo) => !todo.isCompleted),
+  ],
+  [
+    TodoStatus.COMPLETED,
+    (todos: Todo[]) => todos.filter((todo) => todo.isCompleted),
+  ],
 ]);
 
 type TodosProps = {
@@ -25,10 +22,15 @@ type TodosProps = {
 };
 
 const Todos = ({ filter }: TodosProps) => {
-  const todos: Todo[] = useSelector(todosSelector);
+  // TODO: select todos
+  const todos = useTodosStore((store) => store.todos);
+
+  const toggleTodoCompleted = useTodosStore((store) => store.toggleIsCompleted);
+  const deleteTodo = useTodosStore((store) => store.deleteTodo);
+  const updateTodosList = useTodosStore((store) => store.updateTodoList);
+
   const dragItemPosition = useRef<number | null>(null);
   const dragOverPosition = useRef<number | null>(null);
-  const { updateTodoList } = useActions(todoActions);
 
   const filteredTodos = (todoFilters.get(filter)?.(todos) || []) as Todo[];
 
@@ -71,8 +73,8 @@ const Todos = ({ filter }: TodosProps) => {
     newList[dragItemPosition.current] = newList[dragOverPosition.current];
     newList[dragOverPosition.current] = dragItem;
 
-    if (filter) return;
-    updateTodoList(newList);
+    // TODO: update todo list
+    updateTodosList(newList);
 
     dragItemPosition.current = null;
     dragItemPosition.current = null;
@@ -86,16 +88,28 @@ const Todos = ({ filter }: TodosProps) => {
     removeTodoHighlight(e);
   };
 
+  const handleToggleTodoCompleted = (id: string) => {
+    // TODO: toggle todo isCompleted
+    toggleTodoCompleted(id);
+  };
+
+  const handleDeleteTodo = (id: string) => {
+    // TODO: delete todo
+    deleteTodo(id);
+  };
+
   return (
     <ul className="todos">
       {filteredTodos.map(({ id, text, isCompleted }, i) => {
         return (
           <TodoItem
             key={id}
-            content={text}
             id={id}
+            content={text}
             isCompleted={isCompleted}
-            draggable={true && !filter}
+            draggable={filter === TodoStatus.ANY}
+            onToggleCompleted={handleToggleTodoCompleted}
+            onDelete={handleDeleteTodo}
             onDragStart={() => onDragStartHandler(i)}
             onDragOver={(e) => onDragOverHandler(e, i)}
             onDragEnd={onDragEndHandler}

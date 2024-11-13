@@ -1,16 +1,20 @@
 import './Toolbar.scss';
-import { useSelector } from 'react-redux';
-import { todoActions } from '../../redux/actions/todoActions';
-import { todosSelector } from '../../redux/selectors/todo';
-import { useActions } from '../../hooks';
-import { Todo } from '../../types/todo.type';
 import { PropsWithChildren } from 'react';
+import { useTodosStore } from '../../zustand/todos.store';
 
 const Toolbar = ({ children }: PropsWithChildren) => {
-  const todos: Todo[] = useSelector(todosSelector);
+  // TODO: select todos
+  const todos = useTodosStore((store) => store.todos);
+  const clearCompletedTodos = useTodosStore(
+    (store) => store.clearCompletedTodos
+  );
+
   const todosLeft = todos.filter((todo) => !todo.isCompleted).length;
-  const { clearCompleted } = useActions(todoActions);
-  const onClearCompletedHandler = () => clearCompleted();
+
+  const handleClearCompletedTodosClick = () => {
+    // TODO: clear completed todos
+    clearCompletedTodos();
+  };
 
   return (
     <div className="toolbar">
@@ -20,7 +24,7 @@ const Toolbar = ({ children }: PropsWithChildren) => {
       {children}
       <div
         className="toolbar__clear-completed-btn"
-        onClick={onClearCompletedHandler}
+        onClick={handleClearCompletedTodosClick}
       >
         Clear Completed
       </div>

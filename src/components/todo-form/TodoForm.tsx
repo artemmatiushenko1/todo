@@ -1,13 +1,12 @@
 import { Input } from '../../components';
-import { useActions } from '../../hooks';
 import { useState } from 'react';
-import { todoActions } from '../../redux/actions/todoActions';
 import './TodoForm.scss';
 import { Todo } from '../../types/todo.type';
+import { useTodosStore } from '../../zustand/todos.store';
 
 const TodoForm = () => {
   const [todoText, setTodoText] = useState('');
-  const { add } = useActions(todoActions);
+  const addTodo = useTodosStore((store) => store.addTodo);
 
   const onTodoChangeHnadler: React.ChangeEventHandler<HTMLInputElement> = (
     e
@@ -24,7 +23,9 @@ const TodoForm = () => {
       isCompleted: false,
     };
 
-    add(todo);
+    // TODO: Add todo to the store
+    addTodo(todo);
+
     setTodoText('');
   };
 
