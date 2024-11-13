@@ -1,16 +1,13 @@
 import './Toolbar.scss';
-import { Filter } from '../../components';
 import { useSelector } from 'react-redux';
 import { todoActions } from '../../redux/actions/todoActions';
-import { useScreenSize } from '../../hooks';
-import { todoSelector } from '../../redux/selectors/todo';
-import { filterOptions } from '../../constants';
+import { todosSelector } from '../../redux/selectors/todo';
 import { useActions } from '../../hooks';
 import { Todo } from '../../types/todo.type';
+import { PropsWithChildren } from 'react';
 
-const Toolbar = () => {
-  const isMobileScreen = useScreenSize(600);
-  const todos: Todo[] = useSelector(todoSelector);
+const Toolbar = ({ children }: PropsWithChildren) => {
+  const todos: Todo[] = useSelector(todosSelector);
   const todosLeft = todos.filter((todo) => !todo.isCompleted).length;
   const { clearCompleted } = useActions(todoActions);
   const onClearCompletedHandler = () => clearCompleted();
@@ -20,7 +17,7 @@ const Toolbar = () => {
       <p className="toolbar__tasks-left-count">
         <span>{todosLeft}</span> tasks left
       </p>
-      {!isMobileScreen && <Filter options={filterOptions} />}
+      {children}
       <div
         className="toolbar__clear-completed-btn"
         onClick={onClearCompletedHandler}

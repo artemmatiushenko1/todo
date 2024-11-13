@@ -2,10 +2,11 @@ import './Todos.scss';
 import TodoItem from './TodoItem';
 import { useSelector } from 'react-redux';
 import { useRef } from 'react';
-import { filterSelector, todoSelector } from '../../redux/selectors/todo';
+import { todosSelector } from '../../redux/selectors/todo';
 import { todoActions } from '../../redux/actions/todoActions';
 import { useActions } from '../../hooks';
 import { Todo } from '../../types/todo.type';
+import { TodoStatus } from '../../constants';
 
 const getAllTodos = (todos: Todo[]) => todos;
 const getActiveTodos = (todos: Todo[]) =>
@@ -14,15 +15,17 @@ const getCompletedTodos = (todos: Todo[]) =>
   todos.filter((todo) => todo.isCompleted);
 
 const todoFilters = new Map([
-  ['0', getAllTodos],
-  ['1', getActiveTodos],
-  ['2', getCompletedTodos],
+  [TodoStatus.ANY, getAllTodos],
+  [TodoStatus.ACTIVE, getActiveTodos],
+  [TodoStatus.COMPLETED, getCompletedTodos],
 ]);
 
-const Todos = () => {
-  const todos: Todo[] = useSelector(todoSelector);
-  const filter: string = useSelector(filterSelector);
+type TodosProps = {
+  filter: keyof typeof TodoStatus;
+};
 
+const Todos = ({ filter }: TodosProps) => {
+  const todos: Todo[] = useSelector(todosSelector);
   const dragItemPosition = useRef<number | null>(null);
   const dragOverPosition = useRef<number | null>(null);
   const { updateTodoList } = useActions(todoActions);
