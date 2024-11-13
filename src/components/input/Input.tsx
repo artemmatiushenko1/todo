@@ -1,6 +1,11 @@
 import './Input.scss';
 
-const Input = ({ type, placeholder, value, onChange }) => {
+type InputProps = Pick<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'type' | 'value' | 'placeholder' | 'onChange'
+>;
+
+const Input = ({ type, placeholder, value, onChange }: InputProps) => {
   return (
     <input
       className="input"

@@ -1,32 +1,33 @@
 import './Todos.scss';
 import TodoItem from './TodoItem';
 import { useSelector } from 'react-redux';
-import { useEffect, useRef, useState } from 'react';
-import { filterSelector, todoSelector } from 'redux/selectors/todo';
-import { todoActions } from 'redux/actions/todoActions';
-import { useActions } from 'hooks';
+import { useRef } from 'react';
+import { filterSelector, todoSelector } from '../../redux/selectors/todo';
+import { todoActions } from '../../redux/actions/todoActions';
+import { useActions } from '../../hooks';
+import { Todo } from '../../types/todo.type';
 
-const getAllTodos = (todos) => todos;
-const getActiveTodos = (todos) => todos.filter((todo) => !todo.isCompleted);
-const getCompletedTodos = (todos) => todos.filter((todo) => todo.isCompleted);
+const getAllTodos = (todos: Todo[]) => todos;
+const getActiveTodos = (todos: Todo[]) =>
+  todos.filter((todo) => !todo.isCompleted);
+const getCompletedTodos = (todos: Todo[]) =>
+  todos.filter((todo) => todo.isCompleted);
 
 const todoFilters = new Map([
-  [0, getAllTodos],
-  [1, getActiveTodos],
-  [2, getCompletedTodos],
+  ['0', getAllTodos],
+  ['1', getActiveTodos],
+  ['2', getCompletedTodos],
 ]);
 
 const Todos = () => {
-  const todos = useSelector(todoSelector);
-  const filter = useSelector(filterSelector);
-  const [filteredTodos, setFilteredTodos] = useState([]);
+  const todos: Todo[] = useSelector(todoSelector);
+  const filter: string = useSelector(filterSelector);
+
   const dragItemPosition = useRef();
   const dragOverPosition = useRef();
   const { updateTodoList } = useActions(todoActions);
 
-  useEffect(() => {
-    setFilteredTodos(todoFilters.get(filter)(todos));
-  }, [filter, todos]);
+  const filteredTodos = (todoFilters.get(filter)?.(todos) || []) as Todo[];
 
   const removeTodoHighlight = (e) => {
     const todoItem = e.target.closest('.todo');

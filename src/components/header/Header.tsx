@@ -1,5 +1,5 @@
 import './Header.scss';
-import { ThemeToggle } from 'components';
+import { ThemeToggle } from '../../components';
 
 const Header = () => {
   return (

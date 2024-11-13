@@ -6,13 +6,20 @@ import {
   SET_FILTER,
   UPDATE_TODOS_LIST,
 } from '../types';
+import { TodoActions } from '../actions/todoActions';
+import { Todo } from '../../types/todo.type';
 
-const initialState = {
-  todos: [],
-  filter: 0,
+export type TodoStore = {
+  todos: Todo[];
+  filter: string;
 };
 
-const todoReducer = (state = initialState, action) => {
+const initialState: TodoStore = {
+  todos: [],
+  filter: '0',
+};
+
+const todoReducer = (state = initialState, action: TodoActions) => {
   switch (action.type) {
     case ADD_TODO: {
       const updatedTodos = [...state.todos, action.payload];

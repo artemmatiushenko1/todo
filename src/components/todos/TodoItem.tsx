@@ -1,8 +1,20 @@
-import { ReactComponent as IconRemove } from 'assets/images/icon-cross.svg';
-import { todoActions } from 'redux/actions/todoActions';
-import { useActions } from 'hooks';
+import { todoActions } from '../../redux/actions/todoActions';
+import { useActions } from '../../hooks';
 
 import './TodoItem.scss';
+import { IconRemove } from '../icon-remove';
+
+type TodoItemProps = {
+  content: string;
+  id: string;
+  isCompleted: boolean;
+  draggable: boolean;
+  onDragStart: () => void;
+  onDragOver: () => void;
+  onDragEnd: () => void;
+  onDragLeave: () => void;
+  onDrop: () => void;
+};
 
 const TodoItem = ({
   content,
@@ -14,7 +26,7 @@ const TodoItem = ({
   onDragEnd,
   onDragLeave,
   onDrop,
-}) => {
+}: TodoItemProps) => {
   const { toggle, remove } = useActions(todoActions);
   const onCompletedChangeHandler = () => toggle(id);
   const onDeleteHandler = () => remove(id);

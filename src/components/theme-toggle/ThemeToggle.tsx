@@ -1,8 +1,8 @@
 import './ThemeToggle.scss';
-import { themeActions } from 'redux/actions/themeActions';
+import { themeActions } from '../../redux/actions/themeActions';
 import { useSelector } from 'react-redux';
-import { isDarkThemeSelector } from 'redux/selectors/theme';
-import { useActions } from 'hooks';
+import { isDarkThemeSelector } from '../../redux/selectors/theme';
+import { useActions } from '../../hooks';
 
 const ThemeToggle = () => {
   const isDarkTheme = useSelector(isDarkThemeSelector);

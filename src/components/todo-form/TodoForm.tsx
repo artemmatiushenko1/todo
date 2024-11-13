@@ -1,20 +1,29 @@
-import { Input } from 'components';
-import { useActions } from 'hooks';
+import { Input } from '../../components';
+import { useActions } from '../../hooks';
 import { useState } from 'react';
-import { todoActions } from 'redux/actions/todoActions';
+import { todoActions } from '../../redux/actions/todoActions';
 import './TodoForm.scss';
+import { Todo } from '../../types/todo.type';
 
 const TodoForm = () => {
   const [todoText, setTodoText] = useState('');
   const { add } = useActions(todoActions);
 
-  const onTodoChangeHnadler = (e) => {
+  const onTodoChangeHnadler: React.ChangeEventHandler<HTMLInputElement> = (
+    e
+  ) => {
     setTodoText(e.target.value);
   };
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    const todo = { id: Date.now(), text: todoText, isCompleted: false };
+
+    const todo: Todo = {
+      id: Date.now().toString(),
+      text: todoText,
+      isCompleted: false,
+    };
+
     add(todo);
     setTodoText('');
   };
