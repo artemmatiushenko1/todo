@@ -23,32 +23,45 @@ const Todos = () => {
   const todos: Todo[] = useSelector(todoSelector);
   const filter: string = useSelector(filterSelector);
 
-  const dragItemPosition = useRef();
-  const dragOverPosition = useRef();
+  const dragItemPosition = useRef<number | null>(null);
+  const dragOverPosition = useRef<number | null>(null);
   const { updateTodoList } = useActions(todoActions);
 
   const filteredTodos = (todoFilters.get(filter)?.(todos) || []) as Todo[];
 
-  const removeTodoHighlight = (e) => {
-    const todoItem = e.target.closest('.todo');
-    if (!todoItem) return;
-    todoItem.classList.remove('drop-background');
+  const removeTodoHighlight = (e: React.DragEvent<HTMLLIElement>) => {
+    if (e.target instanceof HTMLLIElement) {
+      const todoItem = e.target.closest('.todo');
+      if (!todoItem) return;
+      todoItem.classList.remove('drop-background');
+    }
   };
 
-  const onDragStartHandler = (e, position) => {
+  const onDragStartHandler = (position: number) => {
     dragItemPosition.current = position;
   };
 
-  const onDragOverHandler = (e, position) => {
+  const onDragOverHandler = (
+    e: React.DragEvent<HTMLLIElement>,
+    position: number
+  ) => {
     e.preventDefault();
+
     dragOverPosition.current = position;
-    const todoItem = e.target.closest('.todo');
-    if (!todoItem) return;
-    todoItem.classList.add('drop-background');
+
+    if (e.target instanceof HTMLLIElement) {
+      const todoItem = e.target.closest('.todo');
+      if (!todoItem) return;
+      todoItem.classList.add('drop-background');
+    }
   };
 
-  const onDragEndHandler = (e) => {
+  const onDragEndHandler = (e: React.DragEvent<HTMLLIElement>) => {
     e.preventDefault();
+
+    if (dragItemPosition.current === null || dragOverPosition.current === null)
+      return;
+
     const newList = [...todos];
     const dragItem = newList[dragItemPosition.current];
 
@@ -62,11 +75,11 @@ const Todos = () => {
     dragItemPosition.current = null;
   };
 
-  const onDragLeaveHandler = (e) => {
+  const onDragLeaveHandler = (e: React.DragEvent<HTMLLIElement>) => {
     removeTodoHighlight(e);
   };
 
-  const onDropHandler = (e) => {
+  const onDropHandler = (e: React.DragEvent<HTMLLIElement>) => {
     removeTodoHighlight(e);
   };
 
@@ -80,7 +93,7 @@ const Todos = () => {
             id={id}
             isCompleted={isCompleted}
             draggable={true && !filter}
-            onDragStart={(e) => onDragStartHandler(e, i)}
+            onDragStart={() => onDragStartHandler(i)}
             onDragOver={(e) => onDragOverHandler(e, i)}
             onDragEnd={onDragEndHandler}
             onDrop={onDropHandler}

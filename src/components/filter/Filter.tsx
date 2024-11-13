@@ -8,7 +8,7 @@ type FilterProps = {
 };
 
 const Filter = ({ options = [] }: FilterProps) => {
-  const [activeOption, setActiveOption] = useState('');
+  const [activeOption, setActiveOption] = useState('0');
   const { setFilter } = useActions(todoActions);
 
   const onOptionSelectedHandler = (value: string) => {

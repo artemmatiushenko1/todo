@@ -9,11 +9,11 @@ type TodoItemProps = {
   id: string;
   isCompleted: boolean;
   draggable: boolean;
-  onDragStart: () => void;
-  onDragOver: () => void;
-  onDragEnd: () => void;
-  onDragLeave: () => void;
-  onDrop: () => void;
+  onDragStart: React.DragEventHandler<HTMLLIElement>;
+  onDragOver: React.DragEventHandler<HTMLLIElement>;
+  onDragEnd: React.DragEventHandler<HTMLLIElement>;
+  onDragLeave: React.DragEventHandler<HTMLLIElement>;
+  onDrop: React.DragEventHandler<HTMLLIElement>;
 };
 
 const TodoItem = ({
