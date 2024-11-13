@@ -6,6 +6,7 @@ type TodoItemProps = {
   id: string;
   isCompleted: boolean;
   draggable: boolean;
+  className: string;
 
   onToggleCompleted: (id: string) => void;
   onDelete: (id: string) => void;
@@ -29,17 +30,16 @@ const TodoItem = ({
   onDrop,
   onToggleCompleted,
   onDelete,
+  className,
 }: TodoItemProps) => {
   const handleCheckboxChange = () => onToggleCompleted(id);
 
   const handleDeleteClick = () => onDelete(id);
 
-  const classNames = `todo ${isCompleted ? 'completed' : ''}`;
-
   return (
     <li
       id={id}
-      className={classNames}
+      className={className}
       draggable={draggable}
       onDragStart={onDragStart}
       onDragOver={onDragOver}

@@ -4,6 +4,7 @@ import { Todo } from '../../types/todo.type';
 import { TodoStatus } from '../../constants';
 import { useTodosStore } from '../../zustand/todos.store';
 import { useDnd } from '../../hooks/use-dnd';
+import classNames from 'classnames';
 
 const todoFilters = new Map([
   [TodoStatus.ANY, (todos: Todo[]) => todos],
@@ -29,6 +30,7 @@ const Todos = ({ filter }: TodosProps) => {
   const deleteTodo = useTodosStore((store) => store.deleteTodo);
 
   const {
+    dragOverItemIndex,
     handleDragEnd,
     handleDragLeave,
     handleDragOver,
@@ -62,6 +64,10 @@ const Todos = ({ filter }: TodosProps) => {
             key={id}
             id={id}
             content={text}
+            className={classNames('todo', {
+              completed: isCompleted,
+              'drop-background': dragOverItemIndex === i,
+            })}
             isCompleted={isCompleted}
             draggable={filter === TodoStatus.ANY}
             onToggleCompleted={handleToggleTodoCompleted}

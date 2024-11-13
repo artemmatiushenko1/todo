@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 
 type UseDndProps<T extends object> = {
   getItems: () => T[];
@@ -9,63 +9,54 @@ export const useDnd = <T extends object>({
   getItems,
   updateItems,
 }: UseDndProps<T>) => {
-  const dragItemPosition = useRef<number | null>(null);
-  const dragOverPosition = useRef<number | null>(null);
+  const [draggableItemIndex, setDraggableItemIndex] = useState<number | null>(
+    null
+  );
+  const [dragOverItemIndex, setDragOverItemIndex] = useState<number | null>(
+    null
+  );
 
-  const removeTodoHighlight = (e: React.DragEvent<HTMLLIElement>) => {
-    if (e.target instanceof HTMLLIElement) {
-      const todoItem = e.target.closest('.todo');
-      if (!todoItem) return;
-      todoItem.classList.remove('drop-background');
-    }
+  const handleUpdateItems = () => {
+    if (draggableItemIndex === null || dragOverItemIndex === null) return;
+
+    const newList = [...getItems()];
+    const dragItem = newList[draggableItemIndex];
+
+    newList[draggableItemIndex] = newList[dragOverItemIndex];
+    newList[dragOverItemIndex] = dragItem;
+
+    updateItems(newList);
+
+    setDragOverItemIndex(null);
+    setDraggableItemIndex(null);
   };
 
-  const handleDragStart = (position: number) => {
-    dragItemPosition.current = position;
+  const handleDragStart = (index: number) => {
+    setDraggableItemIndex(index);
   };
 
-  const handleDragOver = (
-    e: React.DragEvent<HTMLLIElement>,
-    position: number
-  ) => {
+  const handleDragOver = (e: React.DragEvent<HTMLLIElement>, index: number) => {
     e.preventDefault();
 
-    dragOverPosition.current = position;
-
-    if (e.target instanceof HTMLLIElement) {
-      const todoItem = e.target.closest('.todo');
-      if (!todoItem) return;
-      todoItem.classList.add('drop-background');
-    }
+    setDragOverItemIndex(index);
   };
 
   const handleDragEnd = (e: React.DragEvent<HTMLLIElement>) => {
     e.preventDefault();
-
-    if (dragItemPosition.current === null || dragOverPosition.current === null)
-      return;
-
-    const newList = [...getItems()];
-    const dragItem = newList[dragItemPosition.current];
-
-    newList[dragItemPosition.current] = newList[dragOverPosition.current];
-    newList[dragOverPosition.current] = dragItem;
-
-    updateItems(newList);
-
-    dragItemPosition.current = null;
-    dragItemPosition.current = null;
+    handleUpdateItems();
   };
 
-  const handleDragLeave = (e: React.DragEvent<HTMLLIElement>) => {
-    removeTodoHighlight(e);
+  const handleDragLeave = () => {
+    setDragOverItemIndex(null);
   };
 
-  const handleDrop = (e: React.DragEvent<HTMLLIElement>) => {
-    removeTodoHighlight(e);
+  const handleDrop = () => {
+    handleUpdateItems();
   };
 
   return {
+    draggableItemIndex,
+    dragOverItemIndex,
     handleDragEnd,
     handleDragLeave,
     handleDragOver,
